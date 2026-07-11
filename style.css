@@ -1,0 +1,215 @@
+/* Arena V2 - Sinematik Tasarım */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #050505;
+  overflow: hidden;
+  color: #f0d98a;
+  font-family: 'Segoe UI', Georgia, serif;
+  cursor: none;
+}
+
+/* Gizli cursor stilleri */
+body.playing {
+  cursor: none !important;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  display: none;
+  image-rendering: crisp-edges;
+}
+
+#intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: linear-gradient(135deg, #0a0805 0%, #0f0a05 50%, #050402 100%);
+  animation: ambientPulse 8s ease-in-out infinite;
+}
+
+@keyframes ambientPulse {
+  0%, 100% { background: linear-gradient(135deg, #0a0805 0%, #0f0a05 50%, #050402 100%); }
+  50% { background: linear-gradient(135deg, #0d0906 0%, #12100a 50%, #080604 100%); }
+}
+
+#start {
+  font-size: 48px;
+  padding: 20px 50px;
+  background: transparent;
+  border: 3px solid #f0d98a;
+  color: #f0d98a;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-weight: bold;
+  letter-spacing: 3px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  text-shadow: 0 0 10px rgba(240, 217, 138, 0.3);
+}
+
+#start::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(45deg, #f0d98a, transparent, #f0d98a);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+#start:hover {
+  background: rgba(240, 217, 138, 0.15);
+  box-shadow: 0 0 30px rgba(240, 217, 138, 0.6), inset 0 0 20px rgba(240, 217, 138, 0.2);
+  transform: scale(1.08);
+  letter-spacing: 5px;
+}
+
+#start:active {
+  transform: scale(0.95);
+}
+
+#ui {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0a0805 0%, #1a0f05 50%, #0a0805 100%);
+  text-align: center;
+  padding: 40px;
+  animation: fadeInBg 0.8s ease;
+}
+
+@keyframes fadeInBg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#title {
+  font-size: 80px;
+  font-weight: 900;
+  margin: 0 0 30px 0;
+  color: #f0d98a;
+  text-shadow: 
+    0 0 20px rgba(240, 217, 138, 0.8),
+    0 0 40px rgba(200, 150, 50, 0.4),
+    0 4px 20px rgba(0, 0, 0, 0.8);
+  letter-spacing: 4px;
+  animation: titleGlow 0.8s ease;
+  line-height: 1.2;
+}
+
+@keyframes titleGlow {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+    text-shadow: 0 0 10px rgba(240, 217, 138, 0.3);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    text-shadow: 
+      0 0 20px rgba(240, 217, 138, 0.8),
+      0 0 40px rgba(200, 150, 50, 0.4),
+      0 4px 20px rgba(0, 0, 0, 0.8);
+  }
+}
+
+#subtitle {
+  font-size: 18px;
+  color: #b8934d;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  animation: subtitleFade 0.8s ease 0.2s both;
+}
+
+@keyframes subtitleFade {
+  from { opacity: 0; }
+  to { opacity: 0.9; }
+}
+
+#join {
+  padding: 16px 56px;
+  font-size: 18px;
+  background: #f0d98a;
+  color: #050505;
+  border: none;
+  font-weight: 900;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 
+    0 0 20px rgba(240, 217, 138, 0.4),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  animation: buttonSlide 0.6s ease 0.4s both;
+}
+
+@keyframes buttonSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#join::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: left 0.5s ease;
+}
+
+#join:hover {
+  background: #fff0b3;
+  transform: scale(1.08);
+  box-shadow: 
+    0 0 40px rgba(240, 217, 138, 0.8),
+    0 15px 40px rgba(0, 0, 0, 0.7);
+  letter-spacing: 3px;
+}
+
+#join:hover::before {
+  left: 100%;
+}
+
+#join:active {
+  transform: scale(0.95);
+}
+
+#patron {
+  font-size: 11px;
+  color: #8b6f1e;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  animation: patronGlow 0.6s ease 0.6s both;
+}
+
+@keyframes patronGlow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
